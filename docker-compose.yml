@@ -1,0 +1,10 @@
+services:
+  flyway:
+    image: flyway/flyway:11.1-alpine
+    container_name: "potato_flyway"
+    volumes:
+      - ./conf:/flyway/conf:ro
+      - ./sql/:/flyway/sql:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
