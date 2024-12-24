@@ -1,10 +1,17 @@
+networks:
+  stack:
+    external: true
+    name: potato_vnet
+
 services:
   flyway:
     image: flyway/flyway:11.1-alpine
     container_name: "potato_flyway"
+    restart: no
+    command: migrate -locations=filesystem:/flyway/sql -connectRetries=1 -placeholders.VegetablesUserName=${VEGETABLES_DB_USERNAME?error} -placeholders.VegetablesUserPassword=${VEGETABLES_DB_PASSWORD?error} -X
+    env_file:
+      - .env
     volumes:
-      - ./conf:/flyway/conf:ro
       - ./sql/:/flyway/sql:ro
-    depends_on:
-      postgres:
-        condition: service_healthy
+    networks:
+      - stack

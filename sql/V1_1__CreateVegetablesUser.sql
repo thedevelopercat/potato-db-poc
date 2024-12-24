@@ -1,4 +1,2 @@
-
-SET search_path TO "garden.db";
-
-CREATE ROLE ${VegetablesUserName} NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT LOGIN NOREPLICATION NOBYPASSRLS PASSWORD ${VegetablesUserPassword};
+-- create the user
+CREATE USER ${VegetablesUserName} WITH PASSWORD '${VegetablesUserPassword}';
