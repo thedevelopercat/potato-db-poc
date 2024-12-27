@@ -18,13 +18,7 @@ services:
       - -user=${FLYWAY_USER?error}
       - -password=${FLYWAY_PASSWORD?error}
       - -url=${FLYWAY_URL?error}
-      # migration configuration
-      - -schemas="flyway"
-      - -group=true
-      - -sqlMigrationPrefix="V"
-      - -sqlMigrationSeparator="__"
-      - -sqlMigrationSuffixes=".sql"
-      - -validateMigrationNaming=true
+      - -configFiles=/etc/flyway/flyway.toml
       # enable debugging
       - -X
     volumes:
