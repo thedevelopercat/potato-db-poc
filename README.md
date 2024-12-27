@@ -12,7 +12,7 @@ This section describes the naming conventions used throughout the database proje
 ## Migration naming
 The migration files (`SQL` scripts) need to have a very specific naming scheme, in order for flyway to pick them up:
 ```
-V<version number>_<order>_<name>.sq
+V<version number>_<order>__<name>.sq
 ```
 
 # Workflow
