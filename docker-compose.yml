@@ -1,17 +1,34 @@
 networks:
   stack:
     external: true
-    name: potato_vnet
+    name: ${VNET_NAME?error}
 
 services:
   flyway:
     image: flyway/flyway:11.1-alpine
     container_name: "potato_flyway"
     restart: no
-    command: migrate -locations=filesystem:/flyway/sql -connectRetries=1 -placeholders.VegetablesUserName=${VEGETABLES_DB_USERNAME?error} -placeholders.VegetablesUserPassword=${VEGETABLES_DB_PASSWORD?error} -X
-    env_file:
-      - .env
+    command: 
+      # execute the migrate command
+      - migrate 
+      # override placeholders (variables) in the SQL scripts
+      - -placeholders.VegetablesUserName=${VEGETABLES_DB_USERNAME?error}
+      - -placeholders.VegetablesUserPassword=${VEGETABLES_DB_PASSWORD?error} 
+      # connecting to the database
+      - -user=${FLYWAY_USER?error}
+      - -password=${FLYWAY_PASSWORD?error}
+      - -url=${FLYWAY_URL?error}
+      # migration configuration
+      - -schemas="flyway"
+      - -group=true
+      - -sqlMigrationPrefix="V"
+      - -sqlMigrationSeparator="__"
+      - -sqlMigrationSuffixes=".sql"
+      - -validateMigrationNaming=true
+      # enable debugging
+      - -X
     volumes:
+      - ./config/flyway.toml:/etc/flyway/flyway.toml:ro
       - ./sql/:/flyway/sql:ro
     networks:
       - stack
