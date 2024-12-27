@@ -2,41 +2,36 @@ baselineDescription="FlywayBaseline"
 encoding="UTF-8"
 environment="default"
 ignoreMigrationPatterns=["*:future"]
-locations=["db/migration"]
+locations=["/flyway/sql"]
+# placeholders
 placeholderPrefix="${"
 placeholderReplacement=true
 placeholderSeparator=":"
 placeholderSuffix="}"
 provisionMode="provision"
-repeatableSqlMigrationPrefix="R"
 reportFilename="report"
+# naming conventions
+repeatableSqlMigrationPrefix="R"
 scriptPlaceholderPrefix="FP__"
 scriptPlaceholderSuffix="__"
 sqlMigrationPrefix="V"
 sqlMigrationSeparator="__"
 sqlMigrationSuffixes=[".sql"]
+validateMigrationNaming=true
+# validation
+baselineOnMigrate=false
+executeInTransaction=true
+failOnMissingLocations=false
+failOnMissingTarget=false
+group=true
+# migrations table configuration
 table="flyway_schema_history"
 target="latest"
 environments.tempConfigEnvironment.jdbcProperties={}
 environments.tempConfigEnvironment.schemas=["flyway"]
-
-group=true
-validateMigrationNaming=true
 environments.default.jdbcProperties={}
 environments.default.schemas=["flyway"]
-baselineOnMigrate=false
-batch=false
-callbacks=[]
-cleanDisabled=true
-cleanOnValidationError=false
-communityDBSupportEnabled=true
-createSchemas=true
-detectEncoding=false
-errorOverrides=[]
-executeInTransaction=true
-failOnMissingLocations=false
-failOnMissingTarget=false
-
+# other
 jarDirs=[]
 lockRetryCount=50
 migrationResolvers=[]
