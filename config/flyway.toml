@@ -1,0 +1,47 @@
+baselineDescription="FlywayBaseline"
+encoding="UTF-8"
+environment="default"
+ignoreMigrationPatterns=["*:future"]
+locations=["/flyway/sql"]
+# placeholders
+placeholderPrefix="${"
+placeholderReplacement=true
+placeholderSeparator=":"
+placeholderSuffix="}"
+provisionMode="provision"
+reportFilename="report"
+# naming conventions
+repeatableSqlMigrationPrefix="R"
+scriptPlaceholderPrefix="FP__"
+scriptPlaceholderSuffix="__"
+sqlMigrationPrefix="V"
+sqlMigrationSeparator="__"
+sqlMigrationSuffixes=[".sql"]
+validateMigrationNaming=true
+# validation
+baselineOnMigrate=false
+executeInTransaction=true
+failOnMissingLocations=false
+failOnMissingTarget=false
+group=true
+# migrations table configuration
+table="flyway_schema_history"
+target="latest"
+environments.tempConfigEnvironment.jdbcProperties={}
+environments.tempConfigEnvironment.schemas=["flyway"]
+environments.default.jdbcProperties={}
+environments.default.schemas=["flyway"]
+# other
+jarDirs=[]
+lockRetryCount=50
+migrationResolvers=[]
+mixed=false
+outOfOrder=false
+outputProgress=false
+outputQueryResults=true
+reportEnabled=false
+skipDefaultCallbacks=false
+skipDefaultResolvers=false
+skipExecutingMigrations=false
+stream=false
+validateOnMigrate=true
