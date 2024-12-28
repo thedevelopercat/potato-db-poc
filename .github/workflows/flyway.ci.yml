@@ -1,3 +1,4 @@
+# more info on https://documentation.red-gate.com/fd/example-ci-cd-pipelines-138347137.html
 name: 'PostgreSQL Flyway CI'
 
 on:
