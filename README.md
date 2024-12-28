@@ -18,7 +18,7 @@ V<version number>__<name>.sql
 ## Repeatable script
 A repeatable script is executed on every migrate command. These scripts needs to be placed in the `sql/repeatable` directory. Their naming convention is as follows:
 ```
-R__<name>.sql
+R__<name>_<detailX>.sql
 ```
 
 # Workflow
@@ -38,11 +38,20 @@ The pipeline is linked to 3 databases:
 3. `prod` this is the production database. 
 
 ## Setup a dedicated user for Flyway
-When running and connecting to a real PGSQL database, a new user should be created using the management UI. The new user should be granted all privilleges only on a subset of databases. The user should be allowed to created other users:
+When running and connecting to a real PGSQL database, a new user should be created using the management UI.other users:
 ```
 GRANT ALL PRIVILEGES ON DATABASE build TO flyway;
 GRANT ALL PRIVILEGES ON DATABASE test TO flyway;
 GRANT ALL PRIVILEGES ON DATABASE production TO flyway;
+```
 
-ALTER ROLE flyway CREATEROLE;
+## Setup dedicated user for the application
+Create a user to be used by the application:
+```
+-- create the user
+CREATE USER vegetables_user WITH PASSWORD <PWD>;
+
+-- allow the user to see the schema
+GRANT USAGE ON SCHEMA "application" TO vegetables_user;
+GRANT USAGE ON SCHEMA "application" TO vegetables_user;
 ```
