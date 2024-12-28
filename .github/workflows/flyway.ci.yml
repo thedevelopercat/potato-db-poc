@@ -32,7 +32,6 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           -cleanDisabled=false clean migrate -schemas="${{ env.SCHEMAS }}"
 
       - name: Flyway Info
@@ -45,7 +44,6 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}" 
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           info -schemas="${{ env.SCHEMAS }}"
 
       # Enterprise license required for Check
@@ -59,7 +57,6 @@ jobs:
       #     -user="${{ secrets.DB_USERNAME }}" 
       #     -password="${{ secrets.DB_PASSWORD }}"
       #     -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-      #     -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
       #     info -schemas="${{ env.SCHEMAS }}"
  
       # - name: Flyway Check
@@ -74,7 +71,6 @@ jobs:
       #       -user="${{ secrets.DB_USERNAME }}" \
       #       -password="${{ secrets.DB_PASSWORD }}" \
       #       -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}" \
-      #       -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}" \
       #       -baselineOnMigrate=true check -changes -drift -dryrun -schemas="${{ env.SCHEMAS }}" -outOfOrder=true -connectRetries=10 \
       #       -check.buildUrl="${{ secrets.DB_URL }}" \
       #       -check.buildUser="${{ secrets.DB_USERNAME }}" \
@@ -105,7 +101,6 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           info -schemas="${{ env.SCHEMAS }}"
       - run: >-
           docker run --rm
@@ -116,7 +111,6 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           migrate -schemas="${{ env.SCHEMAS }}" -outOfOrder=true 
       - run: >-
           docker run --rm
@@ -127,7 +121,6 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"   
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           info -schemas="${{ env.SCHEMAS }}"
  
   Deploy-Prod:
@@ -152,7 +145,6 @@ jobs:
       #       -user="${{ env.DB_USERNAME }}" \
       #       -password="${{ env.DB_PASSWORD }}" \
       #       -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}" \
-      #       -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}" \
       #       -baselineOnMigrate=true check -changes -drift -dryrun -schemas=public -outOfOrder=true \
       #       -check.buildUrl="${{ secrets.DB_URL }}" \
       #       -check.buildUser="${{ secrets.DB_USERNAME }}" \
@@ -174,7 +166,6 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           info -schemas="${{ env.SCHEMAS }}"
       - run: >-
           docker run --rm
@@ -185,7 +176,6 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           migrate -schemas="${{ env.SCHEMAS }}" -outOfOrder=true
       - run: >-
           docker run --rm
@@ -196,5 +186,4 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           info -schemas="${{ env.SCHEMAS }}"
