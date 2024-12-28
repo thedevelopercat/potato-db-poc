@@ -44,14 +44,3 @@ GRANT ALL PRIVILEGES ON DATABASE build TO flyway;
 GRANT ALL PRIVILEGES ON DATABASE test TO flyway;
 GRANT ALL PRIVILEGES ON DATABASE production TO flyway;
 ```
-
-## Setup dedicated user for the application
-Create a user to be used by the application:
-```
--- create the user
-CREATE USER vegetables_user WITH PASSWORD <PWD>;
-
--- allow the user to see the schema
-GRANT USAGE ON SCHEMA "application" TO vegetables_user;
-GRANT USAGE ON SCHEMA "application" TO vegetables_user;
-```
