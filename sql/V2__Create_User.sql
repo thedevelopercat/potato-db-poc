@@ -1,2 +1,2 @@
 -- create the user for the application
-CREATE ROLE ${VegetablesUserName} WITH PASSWORD ${VegetablesUserPassword};
+CREATE USER ${VegetablesUserName} WITH PASSWORD '${VegetablesUserPassword}';
