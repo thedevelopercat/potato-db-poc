@@ -1,2 +1,2 @@
 -- create the schema
-CREATE SCHEMA "application";
+CREATE SCHEMA IF NOT EXISTS "application";
