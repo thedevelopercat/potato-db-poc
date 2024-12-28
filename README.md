@@ -46,3 +46,10 @@ GRANT ALL PRIVILEGES ON DATABASE production TO flyway;
 
 ALTER ROLE flyway CREATEROLE;
 ```
+
+## Same server and multiple database
+We're managing the user through the SQL scripts. Therefore, every database should have its own set of users which have access to the schema. Set the following the environment specific variables to unique values:
+```
+APP_USER_NAME
+APP_USER_PASSWORD
+```
