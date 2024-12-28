@@ -2,7 +2,7 @@
 -- users,schemas,etc
 
 -- cleanup leftover role
-DROP ROLE ${VegetablesUserName};
+DROP ROLE IF EXISTS ${VegetablesUserName};
 
 -- cleanup leftover schema
-DROP SCHEMA "application" CASCADE;
+DROP SCHEMA IF EXISTS "application" CASCADE;
