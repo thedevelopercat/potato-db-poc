@@ -43,4 +43,6 @@ When running and connecting to a real PGSQL database, a new user should be creat
 GRANT ALL PRIVILEGES ON DATABASE build TO flyway;
 GRANT ALL PRIVILEGES ON DATABASE test TO flyway;
 GRANT ALL PRIVILEGES ON DATABASE production TO flyway;
+
+ALTER ROLE flyway CREATEROLE;
 ```
