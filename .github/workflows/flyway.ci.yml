@@ -32,6 +32,7 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
+          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           -cleanDisabled=false clean migrate -schemas="${{ env.SCHEMAS }}"
 
       - name: Flyway Info
@@ -42,41 +43,9 @@ jobs:
           -licenseKey="${{ secrets.FLYWAY_LICENSE_KEY }}"
           -url="${{ secrets.DB_URL }}"
           -user="${{ secrets.DB_USERNAME }}"
-          -password="${{ secrets.DB_PASSWORD }}" 
-          -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
+          -password="${{ secrets.DB_PASSWORD }}"
           info -schemas="${{ env.SCHEMAS }}"
-
-      # Enterprise license required for Check
-      # - name: Flyway Info Production
-      #   run: >-
-      #     docker run --rm
-      #     --volume ${{ github.workspace }}/sql:/flyway/sql:ro
-      #     "${{ env.DOCKER_IMAGE }}"
-      #     -licenseKey="${{ secrets.FLYWAY_LICENSE_KEY }}"
-      #     -url="${{ secrets.DB_URL }}"
-      #     -user="${{ secrets.DB_USERNAME }}" 
-      #     -password="${{ secrets.DB_PASSWORD }}"
-      #     -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
-      #     info -schemas="${{ env.SCHEMAS }}"
- 
-      # - name: Flyway Check
-      #   run: >-
-      #     docker run --rm \
-      #       --volume ${{ github.workspace }}/sql:/flyway/sql:ro \
-      #       --volume ${{ github.workspace }}/reports:/flyway/reports \
-      #       -e ${{ secrets.FLYWAY_LICENSE_KEY }} \
-      #       "${{ env.DOCKER_IMAGE }}" \
-      #       -licenseKey="${{ secrets.FLYWAY_LICENSE_KEY }}" \
-      #       -url="${{ secrets.DB_URL }}" \
-      #       -user="${{ secrets.DB_USERNAME }}" \
-      #       -password="${{ secrets.DB_PASSWORD }}" \
-      #       -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}" \
-      #       -baselineOnMigrate=true check -changes -drift -dryrun -schemas="${{ env.SCHEMAS }}" -outOfOrder=true -connectRetries=10 \
-      #       -check.buildUrl="${{ secrets.DB_URL }}" \
-      #       -check.buildUser="${{ secrets.DB_USERNAME }}" \
-      #       -check.buildPassword="${{ secrets.DB_PASSWORD }}" \
-      #       -reportFilename="/flyway/reports/report.html"
-            
+        
       - name: Upload report
         uses: actions/upload-artifact@v3
         with:
@@ -100,7 +69,6 @@ jobs:
           -url="${{ secrets.DB_URL }}"
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
-          -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
           info -schemas="${{ env.SCHEMAS }}"
       - run: >-
           docker run --rm
@@ -111,6 +79,7 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
+          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           migrate -schemas="${{ env.SCHEMAS }}" -outOfOrder=true 
       - run: >-
           docker run --rm
@@ -120,7 +89,6 @@ jobs:
           -url="${{ secrets.DB_URL }}"
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"   
-          -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
           info -schemas="${{ env.SCHEMAS }}"
  
   Deploy-Prod:
@@ -131,31 +99,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.0
-      
-      # Enterprise license required for Check
-      # - name: Flyway Check
-      #   run: >-
-      #     docker run --rm \
-      #       --volume ${{ github.workspace }}/sql:/flyway/sql:ro \
-      #       --volume ${{ github.workspace }}/reports:/flyway/reports \
-      #       -e ${{ secrets.FLYWAY_LICENSE_KEY }} \
-      #       "${{ env.DOCKER_IMAGE }}" \
-      #       -licenseKey="${{ secrets.FLYWAY_LICENSE_KEY }}" \
-      #       -url="${{ env.DB_URL }}" \
-      #       -user="${{ env.DB_USERNAME }}" \
-      #       -password="${{ env.DB_PASSWORD }}" \
-      #       -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}" \
-      #       -baselineOnMigrate=true check -changes -drift -dryrun -schemas=public -outOfOrder=true \
-      #       -check.buildUrl="${{ secrets.DB_URL }}" \
-      #       -check.buildUser="${{ secrets.DB_USERNAME }}" \
-      #       -check.buildPassword="${{ secrets.DB_PASSWORD }}" \ 
-      #       -reportFilename="/flyway/reports/report.html"
-            
-      # - name: Upload report
-      #   uses: actions/upload-artifact@v3.0.0
-      #   with:
-      #     name: Database Report
-      #     path: reports/
           
       - run: >-           
           docker run --rm
@@ -165,7 +108,6 @@ jobs:
           -url="${{ secrets.DB_URL }}"
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
-          -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
           info -schemas="${{ env.SCHEMAS }}"
       - run: >-
           docker run --rm
@@ -176,6 +118,7 @@ jobs:
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
           -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
+          -placeholders.VegetablesUserPassword="${{ secrets.APP_USER_PASSWORD }}"
           migrate -schemas="${{ env.SCHEMAS }}" -outOfOrder=true
       - run: >-
           docker run --rm
@@ -185,5 +128,4 @@ jobs:
           -url="${{ secrets.DB_URL }}"
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
-          -placeholders.VegetablesUserName="${{ secrets.APP_USER_NAME }}"
           info -schemas="${{ env.SCHEMAS }}"
