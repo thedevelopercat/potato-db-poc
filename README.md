@@ -27,3 +27,22 @@ This section describes the steps to perform in order to add a new migration:
 2. Populate the script.
 3. Run `docker-compose up` to execute interactively.
 4. Run `docker-compose down` to clean up any containers.
+
+# CI
+An enterprise key is needed to leverage all the features of the pipeline.
+
+## Databases used in this CI pipeline
+The pipeline is linked to 3 databases:
+1. `build` this database is dropped and recreated from scratch on every run. This is also where we check if prod has had any drift.
+2. `test` this database is upgraded to newer versions automatically.
+3. `prod` this is the production database. 
+
+## Setup a dedicated user for Flyway
+When running and connecting to a real PGSQL database, a new user should be created using the management UI. The new user should be granted all privilleges only on a subset of databases. The user should be allowed to created other users:
+```
+GRANT ALL PRIVILEGES ON DATABASE build TO flyway;
+GRANT ALL PRIVILEGES ON DATABASE test TO flyway;
+GRANT ALL PRIVILEGES ON DATABASE production TO flyway;
+
+ALTER ROLE flyway CREATEROLE;
+```
